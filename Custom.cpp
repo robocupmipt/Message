@@ -2,7 +2,7 @@
 // Created by Vladislav Molodtsov on 2019-03-31.
 //
 
-#include"custom.h"
+#include"Custom.h"
 #include"iostream"
 
 /* --------------------- Custom classes ------------------------ */

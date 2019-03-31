@@ -26,8 +26,6 @@ class Receive
 {
   public:
 
-  long type;
-
   float x = 0, y = 0;
 
   void Write(float x1, float y1);
@@ -43,8 +41,6 @@ class Receive
 class Send
 {
   public:
-
-  long type;
 
   float x = 0, y = 0;
 
