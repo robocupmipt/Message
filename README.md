@@ -41,7 +41,7 @@ Message message_;
 ## 6) Add constructor of Message class in your constructor:
 
 ```
-MyModule::MyModule() : message\_(FROM_YOUR_MODULE_TO_OTHER, FROM_OTHER_MODULE_TO_YOUR)
+MyModule::MyModule() : message_(FROM_YOUR_MODULE_TO_OTHER, FROM_OTHER_MODULE_TO_YOUR)
 ```
 
 ### Note:
