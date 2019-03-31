@@ -1,18 +1,30 @@
+//
+// Created by Vladislav Molodtsov on 2019-03-31.
+//
+
 #ifndef __MESSAGE_H__
 #define __MESSAGE_H__
+
+/* --------------------- Private classes -------------------- */
+
+/*
+ *
+ * Please, don't change anything, if you are not sure what you are doing.
+ *
+ */
 
 #include<sys/msg.h>
 #include<errno.h>
 #include<stdio.h>
 
 #include"custom.h"
-#include"channels.h"
 
-#define FILE_KEY "../key"
+namespace message
+{
 
 #define PERMISSION 0777
 
-#define CHECK(nameFunction, retValue)				\
+#define MESSAGE_CHECK(nameFunction, retValue)				\
 do {								\
 	if(retValue == -1)					\
 	{							\
@@ -23,8 +35,7 @@ do {								\
 		printf("%s succeeded\n", nameFunction);		\
 } while(0)							\
 
-/* --------------------- Private classes -------------------- */
-
+// struct of message, that uses in msgrcv, msgsnd (Linux calls)
 template<typename T>
 struct MessageType
 {
@@ -33,40 +44,47 @@ struct MessageType
   T data;
 };
 
-template<typename Tx, typename Rx>
+// The main class
+template<typename SendTemplate, typename ReceiveTemplate>
 class Message
 {
   public:
-  Message(int outputType, int inputType);
+  Message(int sendType, int receiveType);
 
   bool InitMsg();
-  bool SetMessageTypes(int output, int input);
+  bool SetMessageTypes(int sendType, int receiveType);
 
-  bool SendMessage(Tx &message);
-  Rx ReceiveMessage();
+  bool SendMessage(SendTemplate &message);
+  ReceiveTemplate ReceiveMessage();
 
   int msgid_;
-  int outputType_ = 1;
-  int inputType_ = 2;
+  int sendType_ = 1;
+  int receiveType_ = 2;
 };
 
-template<typename Tx, typename Rx>
-Message<Tx, Rx>::Message(int outputType, int inputType)
+/*
+ *
+ * Realization of methods
+ *
+ */
+
+template<typename SendTemplate, typename ReceiveTemplate>
+Message<SendTemplate, ReceiveTemplate>::Message(int sendType, int receiveType)
 {
-  SetMessageTypes(outputType, inputType);
+  SetMessageTypes(sendType, receiveType);
 }
-template<typename Tx, typename Rx>
-bool Message<Tx, Rx>::SetMessageTypes(int outputType, int inputType)
+template<typename SendTemplate, typename ReceiveTemplate>
+bool Message<SendTemplate, ReceiveTemplate>::SetMessageTypes(int sendType, int receiveType)
 {
-  outputType_ = outputType;
-  inputType_ = inputType;
+  sendType_ = sendType;
+  receiveType_ = receiveType;
 }
 
-template<typename Tx, typename Rx>
-bool Message<Tx, Rx>::InitMsg()
+template<typename SendTemplate, typename ReceiveTemplate>
+bool Message<SendTemplate, ReceiveTemplate>::InitMsg()
 {
 	key_t key = ftok(FILE_KEY, 0);
-  CHECK("ftok", key);
+  MESSAGE_CHECK("ftok", key);
   std::cout << "key " << key << std::endl;
 
 	msgid_ = msgget(key, PERMISSION | IPC_CREAT | IPC_EXCL);
@@ -75,50 +93,43 @@ bool Message<Tx, Rx>::InitMsg()
 		if(errno == EEXIST)
 		{
 			msgid_ = msgget(key, PERMISSION);
-			CHECK("msgget", msgid_);
+			MESSAGE_CHECK("msgget", msgid_);
 		}
 		else
 		{
-      perror("msgget");
+			perror("msgget");
 			return false;
 		}
 	}
 }
 
-struct Type
-{
-    long type;
-
-    int data;
-};
-
-template<typename Tx, typename Rx>
-bool Message<Tx, Rx>::SendMessage(Tx & message)
+template<typename SendTemplate, typename ReceiveTemplate>
+bool Message<SendTemplate, ReceiveTemplate>::SendMessage(SendTemplate & message)
 {
   std::cout << "SendMessage" << std::endl;
-  message.type = outputType_;
+  message.type = sendType_;
 
   std::cout << "type " << message.type << std::endl;
-  std::cout << "size " << sizeof(Tx) << std::endl;
-  int result = msgsnd(msgid_, (struct msgbuf *)&message, sizeof(Tx), 0);
-  CHECK("msgsnd", result);
+  std::cout << "size " << sizeof(SendTemplate) << std::endl;
+  int result = msgsnd(msgid_, (struct msgbuf *)&message, sizeof(SendTemplate), 0);
+  MESSAGE_CHECK("msgsnd", result);
 }
 
-template<typename Tx, typename Rx>
-Rx Message<Tx, Rx>::ReceiveMessage()
+template<typename SendTemplate, typename ReceiveTemplate>
+ReceiveTemplate Message<SendTemplate, ReceiveTemplate>::ReceiveMessage()
 {
   std::cout << "ReceiveMessage" << std::endl;
-  Rx buf;
+  ReceiveTemplate buf;
 
-  std::cout << "size " << sizeof(Rx) << std::endl;
+  std::cout << "size " << sizeof(ReceiveTemplate) << std::endl;
 
-  int length = msgrcv(msgid_, (struct msg_buf *)&buf, sizeof(Rx), inputType_, 0);
-  if(length != sizeof(Rx))
+  int length = msgrcv(msgid_, (struct msg_buf *)&buf, sizeof(ReceiveTemplate), receiveType_, 0);
+  if(length != sizeof(ReceiveTemplate))
   {
     perror("msgrcv");
 
     std::cout << "Real length = " << length << std::endl;
-    std::cout << "Correct length = " << sizeof(Rx) << std::endl;
+    std::cout << "Correct length = " << sizeof(ReceiveTemplate) << std::endl;
   }
   else
       std::cout << "msgrcv succeed" << std::endl;
@@ -127,5 +138,7 @@ Rx Message<Tx, Rx>::ReceiveMessage()
 
   return buf;
 }
+
+} /* namespace message */
 
 #endif /* __MESSAGE_H__ */

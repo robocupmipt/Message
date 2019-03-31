@@ -1,3 +1,7 @@
+//
+// Created by Vladislav Molodtsov on 2019-03-31.
+//
+
 #include"custom.h"
 #include"iostream"
 
@@ -5,16 +9,24 @@
 
 /*
  *
- * Input class for trasnmission
+ * You can change these on your own.
+ *
+ */
+
+/*
+ *
+ * Receive class for receiving
  *
 */
 
-void Input::Print()
+using namespace message;
+
+void Receive::Print()
 {
   std::cout << "(x,y) = (" << x << ", " << y << ")" << std::endl;
 }
 
-void Input::Write(float x1, float y1)
+void Receive::Write(float x1, float y1)
 {
   x = x1;
   y = y1;
@@ -22,16 +34,16 @@ void Input::Write(float x1, float y1)
 
 /*
  *
- * Output class for receiving
+ * Send class for trasnmission
  *
 */
 
-void Output::Print()
+void Send::Print()
 {
   std::cout << "(x,y) = (" << x << ", " << y << ")" << std::endl;
 }
 
-void Output::Write(float x1, float y1)
+void Send::Write(float x1, float y1)
 {
   x = x1;
   y = y1;

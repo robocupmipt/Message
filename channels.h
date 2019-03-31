@@ -1,3 +1,7 @@
+//
+// Created by Vladislav Molodtsov on 2019-03-31.
+//
+
 #ifndef __CHANNELS_H__
 #define __CHANNELS_H__
 
