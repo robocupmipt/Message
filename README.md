@@ -15,7 +15,7 @@ Channels.h Custom.h Custom.cpp Message.h
 ## 3) Write this define in your source file with your module:
 
 ```
-#define FILE\_KEY "../key"
+#define FILE_KEY "../key"
 ```
 
 ### Warnings: 
@@ -35,13 +35,13 @@ should be common for both modules, that communicate with each other
 
 ```
 private:
-Message message\_;
+Message message_;
 ```
 
 ## 6) Add constructor of Message class in your constructor:
 
 ```
-MyModule::MyModule() : message\_(FROM\_YOUR\_MODULE\_TO\_OTHER, FROM\_OTHER\_MODULE\_TO\_YOUR)
+MyModule::MyModule() : message\_(FROM_YOUR_MODULE_TO_OTHER, FROM_OTHER_MODULE_TO_YOUR)
 ```
 
 ### Note:
@@ -50,7 +50,7 @@ Here FROM\_YOUR\_MODULE\_TO\_OTHER and FROM\_OTHER    \_MODULE\_TO\_YOUR - messa
 ## 7) Add call of this function in init() of your module:
 
 ```
-message\_.InitMsg();
+message_.InitMsg();
 ```
 
 ## 8) Customize classes Receive and Send, which are in Custom.h Custom.cpp
@@ -104,6 +104,6 @@ MessageType<Send> buf;
 
 // For example:
 buf.data.state = currentGameState;
-message\_.SendMessage(buf);
+message_.SendMessage(buf);
 ```
 
