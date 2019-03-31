@@ -106,4 +106,9 @@ MessageType<Send> buf;
 buf.data.state = currentGameState;
 message_.SendMessage(buf);
 ```
+## Note:
+Don't forget that class Message and other tools are in namespace message, so you should write:
+```
+using namespace message;
+```
 
