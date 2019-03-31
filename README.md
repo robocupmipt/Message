@@ -35,7 +35,7 @@ should be common for both modules, that communicate with each other
 
 ```
 private:
-Message message_;
+Message<MessageType<Send>, MessageType<Receive>> message_;
 ```
 
 ## 6) Add constructor of Message class in your constructor:
