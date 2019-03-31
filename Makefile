@@ -1,6 +1,6 @@
 PROJECT = message
 
-SOURCES = main.cpp custom.cpp message.cpp
+SOURCES = main.cpp custom.cpp
 INCLUDES += -I includes
 LIBS =
 DEFINES =

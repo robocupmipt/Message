@@ -12,7 +12,10 @@
 class Input
 {
   public:
-  float x, y;
+
+  long type;
+
+  float x = 0, y = 0;
 
   void Write(float x1, float y1);
   void Print();
@@ -27,7 +30,10 @@ class Input
 class Output
 {
   public:
-  float x, y;
+
+  long type;
+
+  float x = 0, y = 0;
 
   void Write(float x1, float y1);
   void Print();

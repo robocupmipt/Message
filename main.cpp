@@ -1,15 +1,38 @@
 #include<iostream>
-#include"message.h"
 #include"custom.h"
+#include"message.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-  Message<MessageType<Output>, MessageType<Input>> com;
+  int inputType;
+  int outputType;
 
-  MessageType<Output> m;
-  m.data.Write(3.14, 6.5);
-  com.send(m);
+  if(argc != 3)
+  {
+    std::cout << "Arg error" << std::endl;
 
-  MessageType<Input> r = com.receive();
-  r.data.Print();
+    return 1;
+  }
+  else
+  {
+    inputType = atoi(argv[1]);
+    outputType = atoi(argv[2]);
+
+    std::cout << "types: " << inputType << " " << outputType << std::endl;
+  }
+
+  //Message<MessageType<Output>, MessageType<Input>> com(inputType, outputType);
+  Message<Output, Input> com(inputType, outputType);
+  com.InitMsg();
+
+  Output m;
+  Input r;
+  r.Print();
+
+  m.Write(3.14, 6.5);
+  m.Print();
+  com.SendMessage(m);
+
+  r = com.ReceiveMessage();
+  r.Print();
 }
