@@ -21,18 +21,17 @@ int main(int argc, char *argv[])
     std::cout << "types: " << inputType << " " << outputType << std::endl;
   }
 
-  //Message<MessageType<Output>, MessageType<Input>> com(inputType, outputType);
-  Message<Output, Input> com(inputType, outputType);
+  Message<MessageType<Output>, MessageType<Input>> com(inputType, outputType);
   com.InitMsg();
 
-  Output m;
-  Input r;
-  r.Print();
+  MessageType<Output> m;
+  MessageType<Input> r;
+  r.data.Print();
 
-  m.Write(3.14, 6.5);
-  m.Print();
+  m.data.Write(3.14, 6.5);
+  m.data.Print();
   com.SendMessage(m);
 
   r = com.ReceiveMessage();
-  r.Print();
+  r.data.Print();
 }

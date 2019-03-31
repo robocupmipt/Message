@@ -11,7 +11,7 @@
 
 void Input::Print()
 {
-  std::cout << "(x,y) = (" << (float)x << ", " << (float)y << ")" << std::endl;
+  std::cout << "(x,y) = (" << x << ", " << y << ")" << std::endl;
 }
 
 void Input::Write(float x1, float y1)
