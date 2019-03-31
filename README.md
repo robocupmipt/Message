@@ -23,12 +23,17 @@ Channels.h Custom.h Custom.cpp Message.h
 should be common for both modules, that communicate with each other
 * This define must be up to the includes from point 3)
 
-## 4) Include these .h files to your source file with your module:
+## 4) Include these .h files to your .h file of your module:
 
 ```
 #include"Channels.h"
 #include"Custom.h"
 #include"Message.h"
+```
+## 6) Add namespace in .h file of your module:
+
+```
+using namespace message;
 ```
 
 ## 5) Create private field in class of your module:
@@ -106,9 +111,3 @@ MessageType<Send> buf;
 buf.data.state = currentGameState;
 message_.SendMessage(buf);
 ```
-## Note:
-Don't forget that class Message and other tools are in namespace message, so you should write:
-```
-using namespace message;
-```
-
