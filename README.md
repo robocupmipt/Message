@@ -12,25 +12,14 @@ Channels.h Custom.h Custom.cpp Message.h
 
 ## 2) Include source file (Custom.cpp) in your CMake file
 
-## 3) Write this define in your source file with your module:
-
-```
-#define FILE_KEY "../key"
-```
-
-### Warnings: 
-* "../key" is the path to file is called "key", that
-should be common for both modules, that communicate with each other
-* This define must be up to the includes from point 3)
-
-## 4) Include these .h files to your .h file of your module:
+## 3) Include these .h files to your .h file of your module:
 
 ```
 #include"Channels.h"
 #include"Custom.h"
 #include"Message.h"
 ```
-## 6) Add namespace in .h file of your module:
+## 4) Add namespace in .h file of your module:
 
 ```
 using namespace message;
