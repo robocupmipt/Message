@@ -1,7 +1,7 @@
 PROJECT = message
 
-SOURCES = main.cpp custom.cpp
-INCLUDES += -I includes
+SOURCES = main.cpp messenger/Custom.cpp
+INCLUDES += -I messenger
 LIBS =
 DEFINES =
 CFLAGS = #-Wall -Wextra

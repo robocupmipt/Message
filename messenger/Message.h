@@ -73,6 +73,7 @@ template<typename SendTemplate, typename ReceiveTemplate>
 Message<SendTemplate, ReceiveTemplate>::Message(int sendType, int receiveType)
 {
   SetMessageTypes(sendType, receiveType);
+  InitMsg();
 }
 template<typename SendTemplate, typename ReceiveTemplate>
 bool Message<SendTemplate, ReceiveTemplate>::SetMessageTypes(int sendType, int receiveType)

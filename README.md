@@ -41,13 +41,7 @@ MyModule::MyModule() : message_(FROM_YOUR_MODULE_TO_OTHER, FROM_OTHER_MODULE_TO_
 ### Note:
 Here FROM\_YOUR\_MODULE\_TO\_OTHER and FROM\_OTHER    \_MODULE\_TO\_YOUR - message types which you can find in channels.h.
 
-## 7) Add call of this function in init() of your module:
-
-```
-message_.InitMsg();
-```
-
-## 8) Customize classes Receive and Send, which are in Custom.h Custom.cpp
+## 7) Customize classes Receive and Send, which are in Custom.h Custom.cpp
 
 ### Note:
 * Class Message uses two templates: one for desctiprion
@@ -57,7 +51,7 @@ contains field data. You can access this field to call your own
 methods, that you will write in Custom.h. Also there some examples
 next.
 
-## 9) Run endless loop that will receive messages and will call methods of your class
+## 8) Run endless loop that will receive messages and will call methods of your class
 
 For instance,
 
@@ -91,7 +85,7 @@ void StrategyModule::init()
 
 For more details about threads: [link](//https://en.cppreference.com/w/cpp/thread/thread/detach).
 
-## 10) Write sending messages in your methods:
+## 9) Write sending messages in your methods:
 
 ```
 MessageType<Send> buf;

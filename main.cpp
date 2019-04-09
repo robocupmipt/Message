@@ -10,17 +10,13 @@
 
 /* ------ begin ---- - */
 
-#define FILE_KEY "../key"
-
-#include"channels.h"
-#include"custom.h"
-#include"message.h"
+#include"Channels.h"
+#include"Custom.h"
+#include"Message.h"
 
 using namespace message;
 
 /* ------ end ---- - */
-
-
 
 
 /*
